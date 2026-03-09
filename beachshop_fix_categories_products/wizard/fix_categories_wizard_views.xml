@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!-- Wizard Form View -->
+    <record id="view_beachshop_fix_categories_wizard_form" model="ir.ui.view">
+        <field name="name">beachshop.fix.categories.wizard.form</field>
+        <field name="model">beachshop.fix.categories.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Duplicar Categorías y Reasignar Productos">
+                <group>
+                    <group string="Configuración">
+                        <field name="source_company_id" options="{'no_create': True}"/>
+                        <field name="target_company_id" options="{'no_create': True}"/>
+                    </group>
+                    <group string="Información">
+                        <div class="text-muted">
+                            <p><strong>Duplicar Categorías:</strong> Copia todas las categorías de producto
+                            de la compañía origen a la compañía destino, respetando la jerarquía.
+                            Las categorías que ya existan se omiten.</p>
+                            <p><strong>Reasignar Productos:</strong> Los productos de la compañía destino
+                            que tengan categorías de otra compañía se reasignan a la categoría
+                            equivalente (mismo nombre) de su propia compañía.</p>
+                        </div>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_execute_all"
+                            string="Ejecutar Todo"
+                            type="object"
+                            class="btn-primary"
+                            icon="fa-play"/>
+                    <button name="action_duplicate_categories"
+                            string="Solo Duplicar Categorías"
+                            type="object"
+                            class="btn-secondary"
+                            icon="fa-copy"/>
+                    <button name="action_reassign_products"
+                            string="Solo Reasignar Productos"
+                            type="object"
+                            class="btn-secondary"
+                            icon="fa-exchange"/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action to open the wizard -->
+    <record id="action_beachshop_fix_categories_wizard" model="ir.actions.act_window">
+        <field name="name">Duplicar Categorías entre Compañías</field>
+        <field name="res_model">beachshop.fix.categories.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <!-- Menu item under Inventory > Operations -->
+    <menuitem id="menu_beachshop_fix_categories_wizard"
+              name="Duplicar Categorías entre Compañías"
+              parent="stock.menu_stock_warehouse_mgmt"
+              action="action_beachshop_fix_categories_wizard"
+              sequence="99"/>
+
+</odoo>
